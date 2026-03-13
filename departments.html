@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <style>
+        .mdl-layout__header { background-color: #3F51B5 !important; }
+        .accordion-item { border-bottom: 1px solid #e0e0e0; cursor: pointer; }
+        .accordion-header { padding: 15px; font-weight: bold; background: #fff; display: flex; justify-content: space-between; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fafafa; }
+        .accordion-content.open { max-height: 500px; }
+        .dept-table { width: 100%; margin: 0; border: none; }
+        .dept-table td { padding: 12px 20px !important; text-align: left; }
+        .dept-table tr:hover { background-color: #eee; }
+    </style>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">floLite-Home</span>
+                <div class="mdl-layout-spacer"></div>
+                <div id="wh-display" style="font-size: 12px;"></div>
+            </div>
+        </header>
+
+        <main class="mdl-layout__content">
+            <div id="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('ret')">Return <span>▼</span></div>
+                    <div id="ret" class="accordion-content">
+                        <table class="mdl-data-table dept-table">
+                            <tr onclick="location.href='qc.html'"><td>Return Shipment</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('inb')">Inbound <span>▼</span></div>
+                    <div id="inb" class="accordion-content">
+                        <table class="mdl-data-table dept-table">
+                            <tr><td>Receive</td></tr>
+                            <tr><td>Qc</td></tr>
+                            <tr><td>Putaway</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Display selected warehouse from previous page
+        document.getElementById('wh-display').innerText = localStorage.getItem('active_warehouse_name') || 'No WH Selected';
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

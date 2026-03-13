@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login (AuthN)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        nav.navbar { background-color: #2874f0; min-height: 65px; border: none; }
+        body { margin-top: 150px; background-color: #f3f3f3; font-family: Tahoma, Verdana, sans-serif; }
+        .box { margin: 10px auto 30px; width: 50%; }
+        .common-text { font-family: Tahoma, Verdana, sans-serif; }
+        .input-label { font-weight: normal; }
+        .span-whole { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; }
+        .login-submit { 
+            color: white; background-color: #2874f0; border: 1px solid #3079ed; 
+            margin: 0px auto; width: 100px; height: 34px; 
+        }
+        .panel-custom { background: antiquewhite; border-color: burlywood; padding: 20px; }
+        #login-headline { text-align: center; border-bottom: 1px solid #cacaca; font-size: 22px; padding: 15px 0px 10px; }
+        #idp-message { text-align: center; padding: 10px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <img width="149" src="https://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png" alt="Flipkart">
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="panel panel-custom">
+                    <div class="text-center">
+                        <b>Please do not share your password with anyone.</b><br>
+                        Any user found sharing password... <br> <b><font color="red">strict disciplinary action</font></b>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="box">
+                        <div id="login-headline">Login</div>
+                        <div id="idp-message">Enter LDAP credentials</div>
+                        <form id="loginForm">
+                            <label class="input-label">User Name</label>
+                            <input type="text" id="username" class="span-whole" required>
+                            <label class="input-label">Password</label>
+                            <input type="password" id="password" class="span-whole" required>
+                            <button type="submit" class="login-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = { /* YOUR CONFIG */ };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('username').value + "@flipkart.com"; // Mocking LDAP
+            const pass = document.getElementById('password').value;
+            
+            signInWithEmailAndPassword(auth, email, pass)
+                .then(() => window.location.href = "warehouse.html")
+                .catch(err => alert("Login Failed: " + err.message));
+        });
+    </script>
+</body>
+</html>
